@@ -1,0 +1,24 @@
+type Todo {
+  id: ID!
+  text: String!
+  author: User!
+  createdAt: Time!
+}
+
+extend type Mutation {
+  newTodo(input: NewTodoInput!): Todo!
+  updateTodo(input: UpdateTodoInput!): Todo!
+}
+
+extend type Query {
+  todos(input: PagingInput!): [Todo!]!
+  todo(id: ID!): Todo
+}
+
+input NewTodoInput {
+  text: String!
+}
+
+input UpdateTodoInput {
+  text: String!
+}

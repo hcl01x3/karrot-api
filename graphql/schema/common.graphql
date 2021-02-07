@@ -1,0 +1,15 @@
+scalar Time
+
+directive @isAuth on FIELD_DEFINITION
+directive @isNotAuth on FIELD_DEFINITION
+directive @hasRole(role: Role!) on FIELD_DEFINITION
+
+enum Role {
+  ADMIN
+  USER
+}
+
+input PagingInput {
+  cursor: ID
+  after: Int!
+}

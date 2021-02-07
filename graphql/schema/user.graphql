@@ -1,0 +1,37 @@
+type User {
+  id: ID!
+  name: String!
+  mobile: String!
+  role: Role!
+  createdAt: Time!
+  todos(input: PagingInput!): [Todo!]!
+}
+
+input NewUserInput {
+  name: String!
+  mobile: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  name: String
+  mobile: String
+}
+
+input UpdatePasswordInput {
+  oldPassword: String!
+  newPassword: String!
+}
+
+extend type Mutation {
+  newUser(input: NewUserInput!): User! @isNotAuth
+  updateUser(input: UpdateUserInput!): User! @isAuth
+  updatePassword(input: UpdatePasswordInput!): User! @isAuth
+  deleteUser: User! @isAuth
+}
+
+extend type Query {
+  user(id: ID!): User
+  users(input: PagingInput!): [User!]! @hasRole(role: ADMIN) @isAuth
+  me: User! @isAuth
+}
